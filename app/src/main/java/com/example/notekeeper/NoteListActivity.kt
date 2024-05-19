@@ -22,5 +22,15 @@ class NoteListActivity : AppCompatActivity() {
         val listNotes: ListView = findViewById(R.id.listNotes)
         listNotes.adapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, DataManager.notes)
+
+        // listening to event when user selects a note from the list
+        listNotes.setOnItemClickListener { parent, view, position, id ->
+            // launch another activity using Intent (SecondActivity is the target in this case)
+            val activityIntent = Intent(this, SecondActivity::class.java)
+            // pass Extra info (note's position in this case)
+            activityIntent.putExtra(EXTRA_NOTE_POSITION, position)
+            // start the activity
+            startActivity(activityIntent)
+        }
     }
 }
