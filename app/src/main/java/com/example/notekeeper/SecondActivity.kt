@@ -10,12 +10,11 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        val dm = DataManager()
         // creating the adapter
         val adapterCourses = ArrayAdapter<CourseInfo>(
             this,
             android.R.layout.simple_spinner_item,
-            dm.courses.values.toList()
+            DataManager.courses.values.toList()
         )
         // we need to provide a 2nd layout resource for Spinner
         adapterCourses.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
