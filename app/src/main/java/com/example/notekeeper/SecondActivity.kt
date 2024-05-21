@@ -1,10 +1,13 @@
 package com.example.notekeeper
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 
 class SecondActivity : AppCompatActivity() {
     private var notePosition = POSITION_NOT_SET
@@ -13,6 +16,12 @@ class SecondActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
+
+        // Set up the toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        // Set the title of the toolbar
+        supportActionBar?.title = "Edit Note"
 
         // creating the adapter
         val adapterCourses = ArrayAdapter<CourseInfo>(
@@ -51,5 +60,26 @@ class SecondActivity : AppCompatActivity() {
         val spinnerCourses: Spinner = findViewById(R.id.spinnerCourses)
         spinnerCourses.setSelection(coursePosition)
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                // Handle the settings action
+                true
+            }
+
+            R.id.action_next -> {
+                // Handle the next action
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
