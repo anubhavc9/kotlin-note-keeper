@@ -69,17 +69,19 @@ class SecondActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
-                // Handle the settings action
-                true
-            }
+            R.id.action_settings -> true
 
             R.id.action_next -> {
-                // Handle the next action
+                moveNext()
                 true
             }
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun moveNext() {
+        ++notePosition
+        displayNote()
     }
 }
