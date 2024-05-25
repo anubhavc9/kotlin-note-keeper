@@ -108,4 +108,22 @@ class SecondActivity : AppCompatActivity() {
         return super.onPrepareOptionsMenu(menu)
     }
 
+    // to save any changes in activity's content (called when activity moves out of the foreground)
+    override fun onPause() {
+        super.onPause()
+        saveNote()
+    }
+
+    private fun saveNote() {
+        var note = DataManager.notes[notePosition]
+
+        val textNoteTitle: TextView = findViewById(R.id.textNoteTitle)
+        note.title = textNoteTitle.text.toString()
+
+        val textNoteText: TextView = findViewById(R.id.textNoteText)
+        note.text = textNoteText.text.toString()
+
+        val spinnerCourses: Spinner = findViewById(R.id.spinnerCourses)
+        note.course = spinnerCourses.selectedItem as CourseInfo
+    }
 }
