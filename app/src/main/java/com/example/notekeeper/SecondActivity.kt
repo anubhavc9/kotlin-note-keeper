@@ -44,6 +44,11 @@ class SecondActivity : AppCompatActivity() {
         // if no position is passed in Intent Extra, user wants to add a new note
         if (notePosition != POSITION_NOT_SET)
             displayNote()
+        else {
+            // adding a new empty note to the end of "notes"
+            DataManager.notes.add(NoteInfo())
+            notePosition = DataManager.notes.lastIndex
+        }
     }
 
     private fun displayNote() {

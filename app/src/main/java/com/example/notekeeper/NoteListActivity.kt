@@ -33,4 +33,12 @@ class NoteListActivity : AppCompatActivity() {
             startActivity(activityIntent)
         }
     }
+
+    // called when user returns to NoteListActivity from another activity
+    override fun onResume() {
+        super.onResume()
+        // informing the ArrayAdapter that underlying data has changed
+        val listNotes: ListView = findViewById(R.id.listNotes)
+        (listNotes.adapter as ArrayAdapter<NoteInfo>).notifyDataSetChanged()
+    }
 }
