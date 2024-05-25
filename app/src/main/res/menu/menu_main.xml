@@ -7,5 +7,7 @@
         android:title="Settings" />
     <item
         android:id="@+id/action_next"
-        android:title="Next" />
+        android:icon="@drawable/baseline_forward_24_white"
+        android:title="Next"
+        app:showAsAction="ifRoom|withText" />
 </menu>

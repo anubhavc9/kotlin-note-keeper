@@ -1,6 +1,8 @@
 package com.example.notekeeper
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.TextAppearanceSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
@@ -83,5 +85,14 @@ class SecondActivity : AppCompatActivity() {
     private fun moveNext() {
         ++notePosition
         displayNote()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        // setting the color of menu options text to white
+        val nextItem = menu.findItem(R.id.action_next)
+        val s = SpannableString(nextItem.title)
+        s.setSpan(TextAppearanceSpan(this, R.style.MenuItemTextStyle), 0, s.length, 0)
+        nextItem.title = s
+        return super.onPrepareOptionsMenu(menu)
     }
 }
