@@ -85,14 +85,27 @@ class SecondActivity : AppCompatActivity() {
     private fun moveNext() {
         ++notePosition
         displayNote()
+
+        // to change menu items at runtime, invalidateOptionsMenu is used
+        invalidateOptionsMenu() // each time user moves from one next to next, onPrepareOptionsMenu will get called
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+    // this method is automatically called before menu is displayed
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        // if we have reached the last note, change "Next" button on Options Menu
+        if (notePosition >= DataManager.notes.lastIndex) {
+            val menuItem = menu?.findItem(R.id.action_next)
+            if (menuItem != null) {
+                menuItem.icon = getDrawable(R.drawable.baseline_block_24_white)
+                menuItem.isEnabled = false
+            }
+        }
         // setting the color of menu options text to white
-        val nextItem = menu.findItem(R.id.action_next)
-        val s = SpannableString(nextItem.title)
+        val nextItem = menu?.findItem(R.id.action_next)
+        val s = SpannableString(nextItem?.title)
         s.setSpan(TextAppearanceSpan(this, R.style.MenuItemTextStyle), 0, s.length, 0)
-        nextItem.title = s
+        nextItem?.title = s
         return super.onPrepareOptionsMenu(menu)
     }
+
 }
