@@ -28,7 +28,7 @@ class NoteListActivity : AppCompatActivity() {
             // launch another activity using Intent (SecondActivity is the target in this case)
             val activityIntent = Intent(this, SecondActivity::class.java)
             // pass Extra info (note's position in this case)
-            activityIntent.putExtra(EXTRA_NOTE_POSITION, position)
+            activityIntent.putExtra(NOTE_POSITION, position)
             // start the activity
             startActivity(activityIntent)
         }

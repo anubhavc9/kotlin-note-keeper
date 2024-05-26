@@ -16,6 +16,8 @@ class SecondActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // if our activity has been destroyed & then recreated, we can use "savedInstanceState" to
+        // read back the state we saved in "onSaveInstanceState"
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
@@ -38,8 +40,10 @@ class SecondActivity : AppCompatActivity() {
         val spinnerCourses: Spinner = findViewById(R.id.spinnerCourses)
         spinnerCourses.adapter = adapterCourses
 
-        // retrieving the note position from Intent Extra
-        notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET)
+        // retrieving the note position from Saved Instance State (if this activity was destroyed & then recreated)
+        // or from Intent Extra (if this is the initial creation of the activity)
+        notePosition = savedInstanceState?.getInt(NOTE_POSITION, POSITION_NOT_SET)
+            ?: intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET)
         // if the intent that starts this activity has passed position, it means user want to edit an existing note
         // if no position is passed in Intent Extra, user wants to add a new note
         if (notePosition != POSITION_NOT_SET)
@@ -49,6 +53,12 @@ class SecondActivity : AppCompatActivity() {
             DataManager.notes.add(NoteInfo())
             notePosition = DataManager.notes.lastIndex
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // saving notePosition inside the bundle so that it can be retrieved when this activity is active again
+        outState.putInt(NOTE_POSITION, notePosition)
     }
 
     private fun displayNote() {
